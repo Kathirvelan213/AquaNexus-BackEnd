@@ -8,11 +8,11 @@ const port=process.env.PORT;
 
 app.use(express.static('public'));
 app.get('/api/message', (req, res) => {
-    res.send('helloo');
-    // (async ()=>{const jsonfile2=await GetAllFishCatchData2();
-    //     console.log(jsonfile2);
-    // res.json({ jsonfile2 });
-    // })();
+    // res.send('helloo');
+    (async ()=>{const jsonfile2=await GetAllFishCatchData2();
+        console.log(jsonfile2);
+    res.json({ jsonfile2 });
+    })();
     
     
 });
