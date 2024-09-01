@@ -10,7 +10,7 @@ var dbConfig = {
 
 var conn = new sql.ConnectionPool(dbConfig)
 
-async function GetAllFishCatchData(){
+async function RetrieveAllFishCatchData(){
     var req = new sql.Request(conn);
     let promise=new Promise((resolve,reject) => {
 
@@ -24,15 +24,34 @@ async function GetAllFishCatchData(){
                 console.log(err);
             }
             else { 
-                resolve(recordset.recordset)
+                resolve(recordset.recordset);
             }
             conn.close();
         });
     });
 })
-let result=await promise
-return result
+let result=await promise;
+return result;
 }
 
-module.exports=GetAllFishCatchData;   
+async function RetrieveAllSpeciesCount(districtID,startDate,endDate){
+    try{
+
+        let pool = await sql.connect(dbConfig);
+        let result=await pool.request()
+        .input('DistrictID',sql.Int,districtID)
+        .input('StartDate',sql.Date,startDate)
+        .input('EndDate',sql.Date,endDate)
+        .execute('usp_GetAllSpeciesCount');
+        return result.recordset;
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+module.exports={RetrieveAllSpeciesCount: RetrieveAllSpeciesCount,
+    RetrieveAllFishCatchData: RetrieveAllFishCatchData
+}  
+// module.exports=RetrieveAllFishCatchData;
 
