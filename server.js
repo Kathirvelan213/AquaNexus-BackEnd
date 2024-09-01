@@ -1,4 +1,4 @@
-// import { GetAllFishCatchData2 } from '../BAL/FishPopulationManager.js';
+const GetAllFishCatchData2 = require('./BAL/FishPopulationManager');
 
 const express = require('express');
 const app = express();
