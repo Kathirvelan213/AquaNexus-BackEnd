@@ -11,8 +11,8 @@ const corsOptions = {
   }
 
 
-app.use(express.static('public'));
-app.get('/api/Population/All',cors(), (req, res) => {
+app.use(cors(corsOptions));
+app.get('/api/Population/All', (req, res) => {
     (async ()=>{const jsonfile=await populationManager.GetAllFishCatchData();
         // console.log(jsonfile2);
     res.json({ jsonfile });
