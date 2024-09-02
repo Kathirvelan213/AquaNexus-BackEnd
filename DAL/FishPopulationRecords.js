@@ -49,9 +49,20 @@ async function RetrieveAllSpeciesCount(districtID,startDate,endDate){
     }
 }
 
+async function RetrieveTotalSpeciesCount(districtID){
+    try{
+        let pool = await sql.connect(dbConfig);
+        let result=await pool.request()
+        .input('DistrictID',sql.Int,districtID)
+        .execute('usp_GetTotalSpeciesCount');
+        return result.recordset;
+    }catch(err){
+        console.log(err);
+    }
+}
 
 module.exports={RetrieveAllSpeciesCount: RetrieveAllSpeciesCount,
-    RetrieveAllFishCatchData: RetrieveAllFishCatchData
+    RetrieveAllFishCatchData: RetrieveAllFishCatchData,
+    RetrieveTotalSpeciesCount:RetrieveTotalSpeciesCount
 }  
-// module.exports=RetrieveAllFishCatchData;
 

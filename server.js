@@ -14,17 +14,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.get('/api/Population/All', (req, res) => {
     (async ()=>{const jsonfile=await populationManager.GetAllFishCatchData();
-        // console.log(jsonfile2);
     res.json({ jsonfile });
     })();
 });
 
 app.get('/api/Population/Species/AllTime', (req, res) => {
     (async ()=>{const jsonfile=await populationManager.GetSpeciesCountAlltime(req.query.districtID);
-        console.log(req.params.districtID)
     res.json({ jsonfile });
     })();
 });
+
+app.get('/api/Population/Total', (req, res) => {
+    (async ()=>{const jsonfile=await populationManager.GetTotalSpeciesCount(req.query.districtID);
+    res.json({ jsonfile });
+    })();
+});
+
 app.listen(port||3000, () => {
     console.log(`Server is listening at https://testwebappserver.azurewebsites.net`);
 });
