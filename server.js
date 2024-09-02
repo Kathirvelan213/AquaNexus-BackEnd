@@ -7,7 +7,7 @@ const cors=require('cors')
 const port=process.env.PORT;
 
 const corsOptions = {
-    origin: 'http://localhost:5173/',
+    origin: 'http://localhost:5173',
   }
 
 
