@@ -13,7 +13,6 @@ var conn = new sql.ConnectionPool(dbConfig)
 async function RetrieveAllFishCatchData(){
     var req = new sql.Request(conn);
     let promise=new Promise((resolve,reject) => {
-
         conn.connect(function (err) {
             if (err) {
                 console.log(err);
@@ -34,9 +33,32 @@ let result=await promise;
 return result;
 }
 
+async function getbla(){
+    var req = new sql.Request(conn);
+    let promise=new Promise((resolve,reject) => {
+        conn.connect(function (err) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            req.query("select RecordDate from TweekedCatchData; ", function (err, recordset) {
+                if (err) {
+                console.log(err);
+            }
+            else { 
+                
+                resolve(recordset.recordset);
+            }
+            conn.close();
+        });
+    });
+})
+let result=await promise;
+console.log(result);
+return result;
+}
 async function RetrieveAllSpeciesCount(districtID,startDate,endDate){
     try{
-
         let pool = await sql.connect(dbConfig);
         let result=await pool.request()
         .input('DistrictID',sql.Int,districtID)
@@ -61,8 +83,12 @@ async function RetrieveTotalSpeciesCount(districtID){
     }
 }
 
+
+
 module.exports={RetrieveAllSpeciesCount: RetrieveAllSpeciesCount,
     RetrieveAllFishCatchData: RetrieveAllFishCatchData,
-    RetrieveTotalSpeciesCount:RetrieveTotalSpeciesCount
+    RetrieveTotalSpeciesCount:RetrieveTotalSpeciesCount,
+    getbla:getbla,
+
 }  
 
