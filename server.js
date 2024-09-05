@@ -1,5 +1,6 @@
 const populationManager = require('./BAL/FishPopulationManager');
 const LookUpManager=require('./BAL/LookUpManager')
+const DistrictManager=require('./BAL/DistrictManager')
 
 
 const express = require('express');
@@ -47,3 +48,18 @@ app.get('/api/Districts', (req, res) => {
 app.listen(port, () => {
     console.log('Server is listening at https://testwebappserver.azurewebsites.net');
 });
+
+/************************District APIs************************** */
+
+app.get('/api/Coordinates/:districtID', (req, res) => {
+    (async ()=>{const jsonfile=await DistrictManager.GetCoordinates(req.params.districtID);
+    res.json({ jsonfile });
+    })();
+});
+
+app.get('/api/allcoordinates', (req, res) => {
+    (async ()=>{const jsonfile=await DistrictManager.GetAllCoordinates();
+    res.json({ jsonfile });
+    })();
+});
+
