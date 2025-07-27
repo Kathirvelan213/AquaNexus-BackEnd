@@ -2,7 +2,7 @@ const sql=require("mssql");
 
 var dbConfig = {
     server: "ssn-projects-server.database.windows.net",
-    database: "db-fish-records",
+    database: "db-fish-records_2025-07-27T02-09Z",
     user: "kathir",
     password: "sqlserver^SIH",
     
